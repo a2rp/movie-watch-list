@@ -1,72 +1,39 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { FiArrowUp } from "react-icons/fi";
 import styled from "styled-components";
 
 export default function ScrollToTopButton({ threshold = 50 }) {
-    const [visible, setVisible] = React.useState(false);
-
-    React.useEffect(() => {
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
         const onScroll = () => setVisible(window.scrollY > threshold);
-        onScroll(); // run once on mount
+        onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, [threshold]);
-
-    const goTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
     return (
-        <Styled.Wrapper
-            type="button"
-            aria-label="Scroll to top"
-            onClick={goTop}
-            data-visible={visible}
-        >
-            ↑
-        </Styled.Wrapper>
+        <TopButton type="button" aria-label="Scroll to top" data-visible={visible} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <FiArrowUp />
+        </TopButton>
     );
 }
-
-export const Styled = {
-    Wrapper: styled.button`
+const TopButton = styled.button`
     position: fixed;
     right: 24px;
     bottom: 24px;
-    z-index: 1000;
-
+    z-index: 50;
+    display: grid;
     width: 44px;
     height: 44px;
-    border-radius: 999px;
-
-    /* Neutral styling: inherits your site color */
-    color: inherit;
-    background: transparent;
-    border: 1px solid currentColor;
-
-    display: grid;
     place-items: center;
-    font-size: 20px;
+    border: 1px solid rgba(160,198,232,0.3);
+    border-radius: 50%;
+    color: #07111f;
+    background: #7ac9ff;
     cursor: pointer;
-
     opacity: 0;
-    transform: translateY(8px);
     pointer-events: none;
-    transition: opacity 200ms ease, transform 200ms ease;
-
-    &[data-visible="true"] {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 2px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-      transform: none;
-    }
-  `,
-};
+    transition: opacity 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    &[data-visible="true"] { opacity: 1; pointer-events: auto; }
+    &:hover { border-color: #fff; box-shadow: 0 0 20px rgba(122,201,255,0.35); }
+    &:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+`;

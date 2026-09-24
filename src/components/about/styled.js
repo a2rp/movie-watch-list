@@ -1,58 +1,39 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-    background-color: #111;
-    color: #aaa;
-    margin-top: 50px;
-    min-height: 100vh;
-    overflow: hidden;
-    padding: 50px;
-    @media (width<900px) {
-        padding: 15px;
-    }
+const Wrapper = styled.section`
+    width: min(1120px, 94vw);
+    margin: 0 auto;
+    padding: 72px 0 90px;
+    border-top: 1px solid rgba(160, 198, 232, 0.16);
 `;
-
-const Heading = styled.h1`
-    margin-bottom: 30px;
+const Kicker = styled.span`
+    color: #7ac9ff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
 `;
-
-const Row = styled.div`
-    /* border-bottom: 1px solid #ccc; */
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 10px 0;
-
-    &:hover {
-        background-color: #333;
-        /* color: #000;
-        a {
-            color: #000;
-        } */
-    }
+const Heading = styled.h2`
+    max-width: 760px;
+    margin: 14px 0 18px;
+    color: #f5f8ff;
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
 `;
-const Col1 = styled.div`
-    flex: 0 0 80px;
+const Copy = styled.p`
+    max-width: 680px;
+    margin: 0;
+    color: #a9bdd2;
+    line-height: 1.7;
 `;
-const Col2 = styled.div`
-    /* flex: 1 1 100%; */
-
-    a {
-        color: #aaa;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+const List = styled.ul`
+    display: grid;
+    gap: 12px;
+    max-width: 680px;
+    margin: 26px 0 0;
+    padding-left: 20px;
+    color: #cce5fb;
+    line-height: 1.55;
+    li::marker { color: #7ac9ff; }
 `;
-
-export const Styled = {
-    Wrapper,
-    Heading,
-    Row,
-    Col1,
-    Col2,
-};
+export const Styled = { Wrapper, Kicker, Heading, Copy, List };
