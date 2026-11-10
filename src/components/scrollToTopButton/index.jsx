@@ -11,7 +11,7 @@ export default function ScrollToTopButton({ threshold = 50 }) {
         return () => window.removeEventListener("scroll", onScroll);
     }, [threshold]);
     return (
-        <TopButton type="button" aria-label="Scroll to top" data-visible={visible} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <TopButton type="button" aria-label="Scroll to top" data-visible={visible} onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>
             <FiArrowUp />
         </TopButton>
     );

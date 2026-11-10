@@ -56,6 +56,8 @@ export const Styled = {
     ItemTitle: styled.h3`margin: 0; color: #f4f8ff; font-size: 1rem; span { color: #8fa8bf; font-weight: 500; }`,
     ItemMeta: styled.div`display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 8px; color: #8ea6bd; font-size: 0.8rem;`,
     IconButton: styled.button`${button} display: inline-grid; min-width: 42px; min-height: 42px; place-items: center; padding: 9px; border: ${border}; color: #cce5fb; background: transparent; svg { width: 17px; height: 17px; }`,
+    RatingControl: styled.div`display: flex; align-items: center; gap: 5px;`,
+    RatingGroup: styled.div`display: flex; align-items: center; gap: 3px;`,
     StarButton: styled.button`${button} display: inline-grid; min-width: 34px; min-height: 34px; place-items: center; padding: 6px; border: 1px solid ${({ $filled }) => $filled ? "rgba(245,197,24,0.65)" : "rgba(160,198,232,0.2)"}; color: ${({ $filled }) => $filled ? "#f5c518" : "#7890a7"}; background: transparent; svg { width: 15px; height: 15px; fill: ${({ $filled }) => $filled ? "currentColor" : "none"}; }`,
     FooterNote: styled.p`margin: 18px 0 0; color: #7890a7; font-size: 0.78rem; text-align: center;`,
     ModalOverlay: styled.div`position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 18px; background: rgba(2, 8, 16, 0.76);`,

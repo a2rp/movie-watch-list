@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiArrowUp, FiCode, FiCoffee, FiFacebook, FiGithub, FiGlobe, FiHeart, FiLinkedin, FiMail, FiMenu, FiStar, FiX, FiYoutube } from "react-icons/fi";
 import About from "./components/about";
 import MovieWatchlist from "./components/movieWatchList";
@@ -22,9 +22,21 @@ const FooterLinks = ({ items }) => <div className="footerLinks">{items.map(({ la
 
 const App = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuButtonRef = useRef(null);
     const closeMenu = () => setMenuOpen(false);
+    useEffect(() => {
+        if (!menuOpen) return undefined;
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setMenuOpen(false);
+                menuButtonRef.current?.focus();
+            }
+        };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [menuOpen]);
     return <div className="appShell">
-        <header className="siteHeader"><a className="siteBrand" href="#watchlist" onClick={closeMenu}><img src={`${import.meta.env.BASE_URL}logo.png`} alt="Ashish Ranjan logo" /><span><small>A2RP COLLECTION</small><strong>Movie Watchlist</strong></span></a><nav className={`siteNav ${menuOpen ? "siteNavOpen" : ""}`} aria-label="Main navigation"><a href="#watchlist" onClick={closeMenu}>Watchlist</a><a href="#about" onClick={closeMenu}>About</a><a href="#footer" onClick={closeMenu}>Links</a></nav><button className="menuButton" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>{menuOpen ? <FiX /> : <FiMenu />}</button></header>
+        <header className="siteHeader"><a className="siteBrand" href="#watchlist" onClick={closeMenu}><img src={`${import.meta.env.BASE_URL}logo.png`} alt="Ashish Ranjan logo" /><span><small>A2RP COLLECTION</small><strong>Movie Watchlist</strong></span></a><nav id="site-navigation" className={`siteNav ${menuOpen ? "siteNavOpen" : ""}`} aria-label="Main navigation"><a href="#watchlist" onClick={closeMenu}>Watchlist</a><a href="#about" onClick={closeMenu}>About</a><a href="#footer" onClick={closeMenu}>Links</a></nav><button ref={menuButtonRef} className="menuButton" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="site-navigation">{menuOpen ? <FiX /> : <FiMenu />}</button></header>
         <main className="siteMain"><section id="watchlist"><MovieWatchlist /></section><section id="about"><About /></section></main>
         <footer id="footer" className="siteFooter"><div className="footerIntro"><span className="eyebrow">KEEP EXPLORING</span><h2>Build a collection worth coming back to.</h2></div><div className="footerColumns"><div><span className="footerLabel">Links</span><FooterLinks items={links} /></div><div><span className="footerLabel">Support</span><FooterLinks items={support} /></div></div><div className="footerBottom"><span>Copyright &copy; {new Date().getFullYear()} <a href="https://www.ashishranjan.net/" target="_blank" rel="noopener noreferrer">Ashish Ranjan</a></span><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Go to top"><FiArrowUp /></button></div></footer>
         <ScrollToTopButton />
